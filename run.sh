@@ -17,10 +17,11 @@ is_exists() {
 }
 run() {
   local mode="-d"
+  local app_name=$app
 
   if [ "x$1" == "xdebug" ];then
     local mode="-ti --rm"
-    local app="debug_$app"
+    local app_name="debug_$app"
     unset port
     shift
   fi
@@ -38,7 +39,7 @@ run() {
        -v ${HOME}/.mozilla/:/home/browser/.mozilla/   \
        -v ${HOME}/downloads/:/home/browser/downloads/ \
       -e "TZ=Asia/Shanghai"        \
-      --name ${app} ${app}         \
+      --name ${app_name} ${app}         \
       /bin/sh -c "exec /usr/bin/firefox"
 }
 usage() {
