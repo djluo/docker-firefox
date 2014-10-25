@@ -17,6 +17,10 @@ RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 3EE67F3D0FF405B2 \
 RUN sed -e '/en_US.UTF-8/s/^# //' -e '/zh_CN.UTF-8/s/^# //' /etc/locale.gen -i \
     && locale-gen && export LANG=zh_CN.utf8 LC_ALL=zh_CN.utf8
 
+# 安装flashplayer
+RUN apt-get install -y flashplugin-nonfree
+RUN /usr/sbin/update-flashplugin-nonfree --install --quiet
+
 USER browser
 ENV  HOME   /home/browser
 ENV  LANG   zh_CN.utf8
