@@ -30,6 +30,8 @@ run() {
 
   sudo docker run $mode $port           \
        --link ssh-proxy:ssh_proxy       \
+       -e LANG="zh_CN.utf8"             \
+       -e LC_ALL="zh_CN.utf8"           \
        -e DISPLAY=$DISPLAY              \
        -e XMODIFIERS=$XMODIFIERS        \
        -e GTK_IM_MODULE=$GTK_IM_MODULE  \

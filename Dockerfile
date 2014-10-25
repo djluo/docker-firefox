@@ -23,6 +23,6 @@ RUN /usr/sbin/update-flashplugin-nonfree --install --quiet
 
 USER browser
 ENV  HOME   /home/browser
-ENV  LANG   zh_CN.utf8
-ENV  LC_ALL zh_CN.utf8
+#ENV  LANG   zh_CN.utf8
+#ENV  LC_ALL zh_CN.utf8
 CMD  /usr/bin/firefox
