@@ -1,0 +1,4 @@
+container_name='desktop-firefox'
+port=''
+User_Id='1000'
+registry='docker.xlands-inc.com'
