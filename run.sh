@@ -38,6 +38,8 @@ _run() {
   sudo docker run $mode $port \
     -w "/home/docker"         \
     -e "TZ=Asia/Shanghai"     \
+    -e "LANG=zh_CN.utf8"      \
+    -e "LC_ALL=zh_CN.utf8"    \
     -e HOME="/home/docker"    \
     -e DISPLAY=unix$DISPLAY   \
     -e XMODIFIERS=$XMODIFIERS \
