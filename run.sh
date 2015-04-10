@@ -8,25 +8,37 @@
 # description:
 # processname: yys-sh global admin container
 
+process_name=$(basename $0)
+if [ "x${process_name}" == "xfirefox" ];then
+  release_dir=`readlink -f $0`
+  release_dir=`dirname $release_dir`
+  cd $release_dir
+fi
+
 [ -r "/etc/baoyu/functions"  ] && source "/etc/baoyu/functions" && _current_dir
 [ -f "${current_dir}/docker" ] && source "${current_dir}/docker"
 
 # ex: ...../dir1/dir2/run.sh
 # container_name is "dir1-dir2"
-_container_name ${current_dir}
+#_container_name ${current_dir}
+container_name="desktop-firefox"
 
 images="firefox"
 #default_port="172.17.42.1:3306:3306"
 
 action="$1"    # start or stop ...
-_get_uid "$2"  # uid=xxxx ,default is "1000"
-shift $flag_shift
-unset  flag_shift
 
-# 转换需映射的端口号
-app_port="$@"  # hostPort
-app_port=${app_port:=${default_port}}
-_port
+if [ "x${process_name}" == "xfirefox" ];then
+  _check_container
+  cstatus=$?
+  if [ $cstatus -eq 0 ];then
+    action="exec"
+  else
+    action="start"
+  fi
+  exec_cmd="/entrypoint.pl /usr/bin/firefox $@"
+  unset cstatus
+fi
 
 _run() {
   local mode="-d"
