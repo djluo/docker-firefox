@@ -23,10 +23,10 @@ fi
 #_container_name ${current_dir}
 container_name="desktop-firefox"
 
-images="firefox"
-#default_port="172.17.42.1:3306:3306"
+images="docker.xlands-inc.com/desktop/firefox"
 
 action="$1"    # start or stop ...
+user_id=$(id -u)
 
 if [ "x${process_name}" == "xfirefox" ];then
   _check_container
@@ -58,8 +58,9 @@ _run() {
     -e QT_IM_MODULE=$QT_IM_MODULE    \
     -e QT4_IM_MODULE=$QT4_IM_MODULE  \
     -e GTK_IM_MODULE=$GTK_IM_MODULE  \
+    -e PULSE_SERVER="unix:/run/user/${user_id}/pulse/native" \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /dev/snd/:/dev/snd/ \
+    -v /run/user/${user_id}/pulse/:/run/user/${user_id}/pulse/ \
     -v ${HOME}/.mozilla/:/home/docker/.mozilla/   \
     -v ${HOME}/downloads/:/home/docker/downloads/ \
     -h "djluo-hp"     \
